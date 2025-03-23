@@ -7,6 +7,21 @@ However, several critical issues made this task exceptionally difficult, if not 
 
 ---
 
+## **ETL Flow Diagram**
+
+```plaintext
++----------------+        +-------------------------+        +-------------------------+        +-------------------+
+| Oracle Source  | -----> | Procedure Transformation| -----> | Procedure Transform     | -----> | PostgreSQL Target |
+| (Encrypted)    |        | (Decrypt using PL/SQL)  |        | (Encrypt using PLPGSQL) |        | (Encrypted)       |
++----------------+        +-------------------------+        +-------------------------+        +-------------------+
+ |                             |                                |                                |
+ | Extract Encrypted Salary    | Call decrypt_text()            | Call encrypt_text()            | Load Encrypted Data
+  v                             v                                v                                v
+  Oracle DB                     Informatica (PL/SQL)             Informatica (PostgreSQL)         PostgreSQL DB
+```
+
+---
+
 ## **Challenges**
 
 ### **1. Incompatibility of Encryption Mechanisms**
